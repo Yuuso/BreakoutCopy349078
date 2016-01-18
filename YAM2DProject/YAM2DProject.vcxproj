@@ -52,7 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(YAM2D_ROOT)\engine\include\;$(YAM2D_ROOT)\engine\external\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(YAM2D_ROOT)\engine\include\;$(YAM2D_ROOT)\engine\external\;$(SolutionDir)\YAM2DProject\Code\Headers\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -70,7 +70,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(YAM2D_ROOT)\engine\include\;$(YAM2D_ROOT)\engine\external\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(YAM2D_ROOT)\engine\include\;$(YAM2D_ROOT)\engine\external\;$(SolutionDir)\YAM2DProject\Code\Headers\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -82,12 +82,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Code\Sources\GameState.cpp" />
+    <ClCompile Include="Code\Sources\MainMenuState.cpp" />
+    <ClCompile Include="Code\Sources\SplashScreenState.cpp" />
+    <ClCompile Include="Code\Sources\StateManager.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\__yam2d-master\engine\build\win32_vs13\yam2d.vcxproj">
       <Project>{48cda762-fea3-4ff9-3d05-b05d6038cad6}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Code\Headers\GameState.h" />
+    <ClInclude Include="Code\Headers\MainMenuState.h" />
+    <ClInclude Include="Code\Headers\SplashScreenState.h" />
+    <ClInclude Include="Code\Headers\State.h" />
+    <ClInclude Include="Code\Headers\StateManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -20,14 +20,10 @@ void deinit(yam2d::ESContext *esContext)
 // DRAW
 void draw(yam2d::ESContext *esContext)
 {
-	// Set the viewport
 	glViewport(0, 0, esContext->width, esContext->height);
-
-	// Set OpenGL clear color
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
-	// Clear the color buffer
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 }
 
 
@@ -38,8 +34,8 @@ void update(yam2d::ESContext*, float deltaTime)
 }
 
 
-//extern "C" void app_dummy();
 
+//MAIN
 int main(int argc, char *argv [])
 {
 	yam2d::ESContext esContext;
