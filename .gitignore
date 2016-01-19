@@ -80,3 +80,7 @@ $RECYCLE.BIN/
 *.suo
 *.sdf
 *.opensdf
+
+#
+Debug\
+YAM2DProject\Debug\
