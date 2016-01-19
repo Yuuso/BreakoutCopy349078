@@ -6,6 +6,9 @@
 class SplashScreenState : public State
 {
 public:
-	SplashScreenState();
+	SplashScreenState(StateManager* _stateManager);
 	~SplashScreenState();
+
+	void update();
+	void draw();
 };

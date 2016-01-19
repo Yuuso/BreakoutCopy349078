@@ -6,6 +6,9 @@
 class GameState : public State
 {
 public:
-	GameState();
+	GameState(StateManager* _stateManager);
 	~GameState();
+
+	void update();
+	void draw();
 };

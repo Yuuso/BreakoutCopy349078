@@ -1,11 +1,14 @@
 // Include OpenGL ES Engine utils
 #include <es_util.h>
+#include "StateManager.h"
 
+
+StateManager* stateManager;
 
 // Initialization
 bool init(yam2d::ESContext *esContext)
 {
-
+	stateManager = new StateManager();
 	return true;
 }
 
@@ -13,7 +16,7 @@ bool init(yam2d::ESContext *esContext)
 // Deinitialization
 void deinit(yam2d::ESContext *esContext)
 {
-
+	delete stateManager;
 }
 
 
@@ -24,13 +27,14 @@ void draw(yam2d::ESContext *esContext)
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	stateManager->draw();
 }
 
 
 // UPDATE
-void update(yam2d::ESContext*, float deltaTime)
+void update(yam2d::ESContext *esContext, float deltaTime)
 {
-
+	stateManager->update(esContext, deltaTime);
 }
 
 

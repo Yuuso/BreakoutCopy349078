@@ -6,6 +6,9 @@
 class MainMenuState : public State
 {
 public:
-	MainMenuState();
+	MainMenuState(StateManager* _stateManager);
 	~MainMenuState();
+
+	void update();
+	void draw();
 };

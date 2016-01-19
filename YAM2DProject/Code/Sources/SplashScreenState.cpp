@@ -1,11 +1,22 @@
 #include "SplashScreenState.h"
 
 
-SplashScreenState::SplashScreenState()
+SplashScreenState::SplashScreenState(StateManager* _stateManager) : State(_stateManager)
+{
+}
+SplashScreenState::~SplashScreenState()
 {
 
 }
-SplashScreenState::~SplashScreenState()
+
+
+void SplashScreenState::update()
+{
+
+}
+
+
+void SplashScreenState::draw()
 {
 
 }
