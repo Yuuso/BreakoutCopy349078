@@ -80,9 +80,18 @@ $RECYCLE.BIN/
 *.suo
 *.sdf
 *.opensdf
+*.tlog
+*.log
 
 #
 Debug\
 YAM2DProject\Debug\
 Release\
+bin/
+obj/
 YAM2DProject\Release\
+TestResult.xml
+*.VisualState.xml
+Version.cs
+Version.h
+Version.cpp
