@@ -89,16 +89,16 @@
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\__yam2d-master\engine\build\win32_vs13\yam2d.vcxproj">
-      <Project>{48cda762-fea3-4ff9-3d05-b05d6038cad6}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Code\Headers\GameState.h" />
     <ClInclude Include="Code\Headers\MainMenuState.h" />
     <ClInclude Include="Code\Headers\SplashScreenState.h" />
     <ClInclude Include="Code\Headers\State.h" />
     <ClInclude Include="Code\Headers\StateManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\yam2d_backup.git\trunk\engine\build\win32_vs13\yam2d.vcxproj">
+      <Project>{48cda762-fea3-4ff9-3d05-b05d6038cad6}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
