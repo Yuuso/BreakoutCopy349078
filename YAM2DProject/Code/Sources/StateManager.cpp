@@ -1,11 +1,12 @@
 #include "StateManager.h"
 #include "SplashScreenState.h"
+#include "MainMenuState.h"
 
 #include <iostream>
 
 StateManager::StateManager()
 {
-	currentState = new SplashScreenState();
+	currentState = new SplashScreenState(this);
 }
 StateManager::~StateManager()
 {
@@ -13,25 +14,25 @@ StateManager::~StateManager()
 }
 
 
-void StateManager::update(yam2d::ESContext *context, float deltaTime)
+bool StateManager::update(yam2d::ESContext* _context, float _deltaTime)
 {
-	currentState->update();
+	return currentState->update(_context, _deltaTime);
 }
 
 
-void StateManager::draw()
+void StateManager::draw(yam2d::ESContext* _context)
 {
-	currentState->draw();
+	currentState->draw(_context);
 }
 
 
-void StateManager::setState(State* state)
+void StateManager::setState(State* _state)
 {
-	if (state == nullptr)
+	if (_state == nullptr)
 	{
 		std::cout << "Given state is a nullptr!\nPress any key to continue." << std::endl;
 		std::cin.ignore();
 	}
 	delete currentState;
-	currentState = state;
+	currentState = _state;
 }

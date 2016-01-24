@@ -3,16 +3,16 @@
 #include <es_util.h>
 #include "State.h"
 
-
+class State;
 class StateManager
 {
 public:
 	StateManager();
 	~StateManager();
 
-	void update(yam2d::ESContext *context, float deltaTime);
-	void draw();
-	void setState(State* state);
+	bool update(yam2d::ESContext* _context, float _deltaTime);
+	void draw(yam2d::ESContext* _context);
+	void setState(State* _state); //NOTE: return from update immediately after calling for new state!
 
 private:
 	State* currentState;

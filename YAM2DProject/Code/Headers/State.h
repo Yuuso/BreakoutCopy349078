@@ -2,7 +2,7 @@
 
 #include "StateManager.h"
 
-
+class StateManager;
 class State
 {
 public:
@@ -10,11 +10,11 @@ public:
 	{
 		stateManager = _stateManager;
 	}
-	~State(){}
+	virtual ~State(){}
 
-	virtual void update(){}
-	virtual void draw(){}
+	virtual bool update(yam2d::ESContext* _context, float _deltaTime){ return true; }
+	virtual void draw(yam2d::ESContext* _context){}
 
-private:
+protected:
 	StateManager* stateManager;
 };

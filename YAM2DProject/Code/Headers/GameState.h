@@ -9,6 +9,6 @@ public:
 	GameState(StateManager* _stateManager);
 	~GameState();
 
-	void update();
-	void draw();
+	bool update(yam2d::ESContext* _context, float _deltaTime);
+	void draw(yam2d::ESContext* _context);
 };

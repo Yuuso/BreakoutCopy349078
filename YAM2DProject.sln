@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "YAM2DProject", "YAM2DProject\YAM2DProject.vcxproj", "{32FA4D95-A52C-461F-9B89-4D35C2697195}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "yam2d", "..\yam2d_backup.git\trunk\engine\build\win32_vs13\yam2d.vcxproj", "{48CDA762-FEA3-4FF9-3D05-B05D6038CAD6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "yam2d", "..\__yam2d-master\engine\build\win32_vs13\yam2d.vcxproj", "{48CDA762-FEA3-4FF9-3D05-B05D6038CAD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

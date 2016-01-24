@@ -53,5 +53,8 @@
     <ClInclude Include="Code\Headers\State.h">
       <Filter>Header Files\States</Filter>
     </ClInclude>
+    <ClInclude Include="Code\Headers\CreateGameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

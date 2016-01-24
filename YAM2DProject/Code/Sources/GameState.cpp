@@ -11,13 +11,13 @@ GameState::~GameState()
 }
 
 
-void GameState::update()
+bool GameState::update(yam2d::ESContext* _context, float _deltaTime)
 {
-
+	return true;
 }
 
 
-void GameState::draw()
+void GameState::draw(yam2d::ESContext* _context)
 {
 
 }
