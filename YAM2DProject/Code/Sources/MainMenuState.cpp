@@ -35,6 +35,7 @@ MainMenuState::~MainMenuState()
 
 bool MainMenuState::update(yam2d::ESContext* _context, float _deltaTime)
 {
+	map->update(_deltaTime);
 	mouseCoords = map->screenToMapCoordinates((float)yam2d::getMouseAxisX(), (float)yam2d::getMouseAxisY());
 
 	pickObject = map->getLayer("Objects")->pick(mouseCoords);

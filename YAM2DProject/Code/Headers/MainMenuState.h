@@ -3,7 +3,7 @@
 #include "State.h"
 
 #include <Map.h>
-#include <GameObject.h> //BUG!!!
+#include <GameObject.h>
 #include <Layer.h>
 
 

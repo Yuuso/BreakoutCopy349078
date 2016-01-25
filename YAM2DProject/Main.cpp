@@ -5,7 +5,7 @@
 StateManager* stateManager;
 
 // Initialization
-bool init(yam2d::ESContext *esContext)
+bool init(yam2d::ESContext* _esContext)
 {
 	stateManager = new StateManager();
 	return true;
@@ -13,31 +13,31 @@ bool init(yam2d::ESContext *esContext)
 
 
 // Deinitialization
-void deinit(yam2d::ESContext *esContext)
+void deinit(yam2d::ESContext* _esContext)
 {
 }
 
 
 // DRAW
-void draw(yam2d::ESContext *esContext)
+void draw(yam2d::ESContext* _esContext)
 {
-	glViewport(0, 0, esContext->width, esContext->height);
+	glViewport(0, 0, _esContext->width, _esContext->height);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	stateManager->draw(esContext);
+	stateManager->draw(_esContext);
 }
 
 
 // UPDATE
-void update(yam2d::ESContext *esContext, float deltaTime)
+void update(yam2d::ESContext* _esContext, float _deltaTime)
 {
-	if (!stateManager->update(esContext, deltaTime))
+	if (!stateManager->update(_esContext, _deltaTime))
 	{
-		yam2d::esQuitApp(esContext);
+		yam2d::esQuitApp(_esContext);
 		delete stateManager;
 	}
 }
@@ -45,7 +45,7 @@ void update(yam2d::ESContext *esContext, float deltaTime)
 
 
 //MAIN
-int main(int argc, char *argv [])
+int main(int argc, char** argv)
 {
 	yam2d::ESContext esContext;
 	esInitContext(&esContext);
