@@ -15,6 +15,7 @@ bool init(yam2d::ESContext* _esContext)
 // Deinitialization
 void deinit(yam2d::ESContext* _esContext)
 {
+	delete stateManager;
 }
 
 
@@ -36,10 +37,7 @@ void draw(yam2d::ESContext* _esContext)
 void update(yam2d::ESContext* _esContext, float _deltaTime)
 {
 	if (!stateManager->update(_esContext, _deltaTime))
-	{
 		yam2d::esQuitApp(_esContext);
-		delete stateManager;
-	}
 }
 
 

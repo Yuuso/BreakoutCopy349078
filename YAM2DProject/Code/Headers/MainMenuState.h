@@ -18,11 +18,11 @@ public:
 
 private:
 	yam2d::vec2 mouseCoords;
+	yam2d::vec2 tileSize;
 	yam2d::GameObject* pickObject;
 	yam2d::GameObject* backgroundObject;
 	yam2d::GameObject* newGameObject;
 	yam2d::GameObject* exitGameObject;
-	yam2d::vec2 tileSize;
 	yam2d::Map* map;
 	yam2d::Layer* background;
 	yam2d::Layer* objects;

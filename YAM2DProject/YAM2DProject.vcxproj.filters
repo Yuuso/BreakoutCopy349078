@@ -36,6 +36,15 @@
     <ClCompile Include="Code\Sources\StateManager.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Sources\CreateGameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Sources\PhysicsBody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Sources\ContactListener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Headers\StateManager.h">
@@ -54,6 +63,12 @@
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="Code\Headers\CreateGameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Headers\PhysicsBody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Headers\ContactListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

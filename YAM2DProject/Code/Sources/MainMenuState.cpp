@@ -10,7 +10,7 @@ MainMenuState::MainMenuState(StateManager* _stateManager) : State(_stateManager)
 {
 	map = new yam2d::Map(tileSize.x, tileSize.y);
 
-	background = new yam2d::Layer(map, "Background", 1.0f, true, false);
+	background = new yam2d::Layer(map, "Background", 1.0f, true, true);
 	objects = new yam2d::Layer(map, "Objects", 1.0f, true, false);
 
 	map->addLayer(yam2d::Map::BACKGROUND0, background);
@@ -50,7 +50,7 @@ bool MainMenuState::update(yam2d::ESContext* _context, float _deltaTime)
 	}
 	else
 	{
-		newGameObject->getComponent<yam2d::SpriteComponent>()->getSprite()->setColor(1.0, 1.0, 1.0);
+		newGameObject->getComponent<yam2d::SpriteComponent>()->getSprite()->setColor(0.7, 0.7, 0.7);
 	}
 	if (pickObject == exitGameObject)
 	{
@@ -63,6 +63,16 @@ bool MainMenuState::update(yam2d::ESContext* _context, float _deltaTime)
 	else
 	{
 		exitGameObject->getComponent<yam2d::SpriteComponent>()->getSprite()->setColor(1.0, 1.0, 1.0);
+	}
+
+	if (yam2d::getKeyState(yam2d::KEY_ESCAPE))
+	{
+		return false;
+	}
+	if (yam2d::getKeyState(yam2d::KEY_RETURN))
+	{
+		stateManager->setState(new GameState(stateManager));
+		return true;
 	}
 
 	return true;

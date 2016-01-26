@@ -82,16 +82,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Code\Sources\ContactListener.cpp" />
+    <ClCompile Include="Code\Sources\CreateGameObject.cpp" />
     <ClCompile Include="Code\Sources\GameState.cpp" />
     <ClCompile Include="Code\Sources\MainMenuState.cpp" />
+    <ClCompile Include="Code\Sources\PhysicsBody.cpp" />
     <ClCompile Include="Code\Sources\SplashScreenState.cpp" />
     <ClCompile Include="Code\Sources\StateManager.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Code\Headers\ContactListener.h" />
     <ClInclude Include="Code\Headers\CreateGameObject.h" />
     <ClInclude Include="Code\Headers\GameState.h" />
     <ClInclude Include="Code\Headers\MainMenuState.h" />
+    <ClInclude Include="Code\Headers\PhysicsBody.h" />
     <ClInclude Include="Code\Headers\SplashScreenState.h" />
     <ClInclude Include="Code\Headers\State.h" />
     <ClInclude Include="Code\Headers\StateManager.h" />
