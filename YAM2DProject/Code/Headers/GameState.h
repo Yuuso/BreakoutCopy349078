@@ -24,7 +24,7 @@ private:
 	yam2d::vec2 playerPosition;
 	yam2d::vec2 ballPosition;
 	yam2d::vec2 tileSize;
-	yam2d::vec2 ballVelocity;
+	//yam2d::vec2 ballVelocity;
 	yam2d::Map* map;
 	yam2d::GameObject* backgroundObject;
 	yam2d::GameObject* playerObject;
