@@ -1,5 +1,6 @@
 #include "SplashScreenState.h"
 #include "MainMenuState.h"
+#include "Input.h"
 
 
 SplashScreenState::SplashScreenState(StateManager* _stateManager) : State(_stateManager), splashTime(0.0f)
@@ -22,8 +23,16 @@ bool SplashScreenState::update(yam2d::ESContext* _context, float _deltaTime)
 	static const float startTime = _deltaTime;
 	splashTime += _deltaTime;
 	if (splashTime >= (startTime + 1.0f))
+	{
 		stateManager->setState(new MainMenuState(stateManager));
-
+		return true;
+	}
+	else if (GetKeyState(yam2d::KEY_RETURN))
+	{
+		stateManager->setState(new MainMenuState(stateManager));
+		return true;
+	}
+	
 	return true;
 }
 

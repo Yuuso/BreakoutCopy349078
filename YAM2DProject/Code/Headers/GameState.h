@@ -6,6 +6,7 @@
 #include <Map.h>
 #include <Layer.h>
 #include <GameObject.h>
+#include <TextComponent.h>
 #include <Box2D\Box2D.h>
 
 #include <vector>
@@ -29,9 +30,13 @@ private:
 	yam2d::GameObject* backgroundObject;
 	yam2d::GameObject* playerObject;
 	yam2d::GameObject* ballObject;
+	yam2d::GameObject* textObject;
 	yam2d::Layer* background;
 	yam2d::Layer* objects;
 	std::vector<yam2d::GameObject*> tileObjects;
+
+	int tileAmount;
+	float endTimer = 3.0f;
 
 	b2World* boxWorld;
 	ContactListener* contactListener;

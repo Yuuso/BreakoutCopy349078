@@ -25,6 +25,12 @@
     <Filter Include="Source Files\ExtendedEngine">
       <UniqueIdentifier>{e25b9eea-170e-4291-bd46-460a80a915d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Debug">
+      <UniqueIdentifier>{196cb3a5-3de9-4b1a-bf15-26ec13177632}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Debug">
+      <UniqueIdentifier>{8566eaf8-34d3-44ab-bd86-3d747662d403}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -51,6 +57,12 @@
     <ClCompile Include="Code\Sources\PhysicsBody.cpp">
       <Filter>Source Files\ExtendedEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Sources\DEBUGiostream.cpp">
+      <Filter>Source Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Sources\CreateTextObject.cpp">
+      <Filter>Source Files\ExtendedEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Headers\StateManager.h">
@@ -75,6 +87,12 @@
       <Filter>Header Files\ExtendedEngine</Filter>
     </ClInclude>
     <ClInclude Include="Code\Headers\PhysicsBody.h">
+      <Filter>Header Files\ExtendedEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Headers\DEBUGiostream.h">
+      <Filter>Header Files\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Headers\CreateTextObject.h">
       <Filter>Header Files\ExtendedEngine</Filter>
     </ClInclude>
   </ItemGroup>
