@@ -9,7 +9,7 @@
 #define TILEAMOUNT 0
 
 
-GameState::GameState(StateManager* _stateManager) : State(_stateManager), tileSize(64.0f, 64.0f), playerPosition(0.0f, 4.0f), ballPosition(0.0f, 0.0f)/*, ballVelocity(0.0f, 0.1f)*/
+GameState::GameState(StateManager* _stateManager) : State(_stateManager), tileSize(64.0f, 64.0f), playerPosition(0.0f, 4.0f), ballPosition(0.0f, 0.0f), ballVelocity(0.0f, 0.2f)
 {
 	boxWorld = new b2World(yam2d::vec2(0.0f, 0.0f));
 	boxWorld->SetAllowSleeping(false);
@@ -29,14 +29,14 @@ GameState::GameState(StateManager* _stateManager) : State(_stateManager), tileSi
 	playerObject = createSpriteGameObject("Textures/player.png", 220.0f, 50.0f);
 	playerObject->setPosition(playerPosition);
 	PhysicsBody* Playerbody = new PhysicsBody(playerObject, boxWorld, 1.0f, 1.0f);
-	Playerbody->setBoxFixture(playerObject->getSizeInTiles()*0.01f, playerObject->getPosition(), playerObject->getRotation(), true);
+	Playerbody->setBoxFixture(playerObject->getSizeInTiles()*0.95f, playerObject->getPosition(), playerObject->getRotation(), false);
 	playerObject->addComponent(Playerbody);
 	playerObject->setName("Player");
 
 	ballObject = createSpriteGameObject("Textures/ball.png", 50.0f, 50.f);
 	ballObject->setPosition(ballPosition);
 	PhysicsBody* ballBody = new PhysicsBody(ballObject, boxWorld, 1.0f, 1.0f);
-	ballBody->setCircleFixture(ballObject->getSize().x, true);
+	Playerbody->setBoxFixture(playerObject->getSizeInTiles()*0.95f, playerObject->getPosition(), playerObject->getRotation(), false);
 	ballObject->addComponent(ballBody);
 	ballObject->setName("Ball");
 
@@ -75,8 +75,7 @@ bool GameState::update(yam2d::ESContext* _context, float _deltaTime)
 		yam2d::GameObject* B = ((PhysicsBody*) contact.fixtureB->GetBody()->GetUserData())->getGameObject();
 		if ((A->getName() == "Player" && B->getName() == "Ball") || (B->getName() == "Player" && A->getName() == "Ball"))
 		{
-			//ballObject->setPosition(ballObject->getPosition() - ballVelocity);
-			//ballVelocity = yam2d::vec2(ballVelocity.x, -ballVelocity.y);
+			ballVelocity.y = -ballVelocity.y;
 		}
 	}
 	
@@ -88,14 +87,13 @@ bool GameState::update(yam2d::ESContext* _context, float _deltaTime)
 
 	if (yam2d::getKeyState(yam2d::KEY_D))
 	{
-		playerObject->getComponent<PhysicsBody>()->getBody()->ApplyForceToCenter(yam2d::vec2(1.0f, 0.0f));
-		//playerObject->setPosition(playerObject->getPosition() + yam2d::vec2(0.1f, 0.0f));
+		playerObject->getComponent<PhysicsBody>()->getBody()->SetTransform(playerObject->getPosition() + yam2d::vec2(0.1f, 0.0f), 0.0f);
 	}
 	if (yam2d::getKeyState(yam2d::KEY_A))
 	{
-		playerObject->setPosition(playerObject->getPosition() + yam2d::vec2(-0.1f, 0.0f));
+		playerObject->getComponent<PhysicsBody>()->getBody()->SetTransform(playerObject->getPosition() + yam2d::vec2(-0.1f, 0.0f), 0.0f);
 	}
-	//ballObject->setPosition(ballObject->getPosition() + ballVelocity);
+	ballObject->getComponent<PhysicsBody>()->getBody()->SetTransform(ballObject->getPosition() + ballVelocity, 0.0f);
 
 	return true;
 }
