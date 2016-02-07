@@ -11,6 +11,14 @@
 #include "DEBUGiostream.h"
 
 
+/*
+Power ups
+levels
+score
+tile hitting physics
+
+*/
+
 GameState::GameState(StateManager* _stateManager) : State(_stateManager), tileSize(64.0f, 64.0f), playerPosition(0.0f, 4.0f), ballPosition(0.0f, 0.0f), ballVelocity(0.0f, 0.1f)
 {
 	tileAmount = 5;
@@ -132,7 +140,7 @@ bool GameState::update(yam2d::ESContext* _context, float _deltaTime)
 		textObject->setPosition(0.0f, 0.0f);
 		endTimer -= _deltaTime;
 	}
-	if (ballObject->getComponent<PhysicsBody>()->getBody()->GetPosition().y > ((float) _context->height / 2.0f) / tileSize.y)
+	else if (ballObject->getComponent<PhysicsBody>()->getBody()->GetPosition().y > ((float) _context->height / 2.0f) / tileSize.y)
 	{
 		//Lose
 		textObject->getComponent<yam2d::TextComponent>()->getText()->setText("YOU LOSE!");
