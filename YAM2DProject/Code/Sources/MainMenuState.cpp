@@ -1,6 +1,7 @@
 #include "MainMenuState.h"
 #include "GameState.h"
 #include "CreateGameObject.h"
+#include "GameLevelState.h"
 #include "Input.h"
 #include "Camera.h"
 #include "SpriteComponent.h"
@@ -44,7 +45,7 @@ bool MainMenuState::update(yam2d::ESContext* _context, float _deltaTime)
 		newGameObject->getComponent<yam2d::SpriteComponent>()->getSprite()->setColor(0.5, 0.5, 0.5);
 		if (yam2d::getMouseButtonState(yam2d::MOUSE_LEFT))
 		{
-			stateManager->setState(new GameState(stateManager));
+			stateManager->setState(new GameLevelState(stateManager));
 			return true;
 		}
 	}
@@ -71,7 +72,7 @@ bool MainMenuState::update(yam2d::ESContext* _context, float _deltaTime)
 	}
 	if (yam2d::getKeyState(yam2d::KEY_RETURN))
 	{
-		stateManager->setState(new GameState(stateManager));
+		stateManager->setState(new GameLevelState(stateManager));
 		return true;
 	}
 

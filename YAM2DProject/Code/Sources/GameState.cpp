@@ -19,9 +19,10 @@ tile hitting physics
 
 */
 
-GameState::GameState(StateManager* _stateManager) : State(_stateManager), tileSize(64.0f, 64.0f), playerPosition(0.0f, 4.0f), ballPosition(0.0f, 0.0f), ballVelocity(0.0f, 0.1f)
+GameState::GameState(StateManager* _stateManager) : State(_stateManager), tileSize(64.0f, 64.0f), playerPosition(0.0f, 4.0f), ballPosition(0.0f, 0.0f), ballVelocity(0.0f, 0.1f),
+													ballSize(40.0f, 40.0f), playerSize(150, 35.0f), tilesSize(90.0f, 40.0f)
 {
-	tileAmount = 5;
+	tileAmount = 10;
 
 	boxWorld = new b2World(yam2d::vec2(0.0f, 0.0f));
 	boxWorld->SetAllowSleeping(false);
@@ -38,16 +39,14 @@ GameState::GameState(StateManager* _stateManager) : State(_stateManager), tileSi
 
 	backgroundObject = createSpriteGameObject("Textures/menu_background.png", 1280.0f, 720.0f);
 	
-	yam2d::vec2 playerSize(220.0f, 50.0f);
-	playerObject = createSpriteGameObject("Textures/player.png", 220.0f, 50.0f);
+	playerObject = createSpriteGameObject("Textures/player.png", playerSize.x, playerSize.y);
 	PhysicsBody* Playerbody = new PhysicsBody(playerObject, boxWorld, 1.0f, 1.0f);
 	Playerbody->setBoxFixture(playerSize / tileSize, yam2d::vec2(0.0f, 0.0f), playerObject->getRotation(), true);
 	playerObject->addComponent(Playerbody);
 	playerObject->setName("Player");
 	playerObject->getComponent<PhysicsBody>()->getBody()->SetTransform(playerPosition, 0.0f);
 
-	yam2d::vec2 ballSize(50.0f, 50.0f);
-	ballObject = createSpriteGameObject("Textures/ball.png", 50.0f, 50.f);
+	ballObject = createSpriteGameObject("Textures/ball.png", ballSize.x, ballSize.y);
 	PhysicsBody* ballBody = new PhysicsBody(ballObject, boxWorld, 1.0f, 1.0f);
 	ballBody->setCircleFixture((ballSize.x / tileSize.x) / 2 , true);
 	ballObject->addComponent(ballBody);
@@ -56,8 +55,7 @@ GameState::GameState(StateManager* _stateManager) : State(_stateManager), tileSi
 
 	for (int i = 0; i < tileAmount; i++)
 	{
-		yam2d::vec2 tilesSize(100.0f, 50.0f);
-		tileObjects.push_back(createSpriteGameObject("Textures/tile.png", 100.0f, 50.0f));
+		tileObjects.push_back(createSpriteGameObject("Textures/tile.png", tilesSize.x, tilesSize.y));
 		objects->addGameObject(tileObjects.back());
 		PhysicsBody* tileBody = new PhysicsBody(tileObjects.back(), boxWorld, 1.0f, 1.0f);
 		tileBody->setBoxFixture(tilesSize / tileSize, yam2d::vec2(0.0f, 0.0f), tileObjects.back()->getRotation(), true);
@@ -105,21 +103,36 @@ bool GameState::update(yam2d::ESContext* _context, float _deltaTime)
 			}
 			ballHit = true;
 		}
-		if ((A->getName() == "Ball" && B->getName() == "Tile") || (B->getName() == "Ball" && A->getName() == "Tile"))
+		if ((A->getName() == "Ball" && B->getName() == "Tile"))
 		{
+			//Physics
 			if (!ballHit)
+			{
 				ballVelocity.y = -ballVelocity.y;
+				if (A->getComponent<PhysicsBody>()->getBody()->GetPosition().x > B->getComponent<PhysicsBody>()->getBody()->GetPosition().x)
+				{
+					ballVelocity.x = -ballVelocity.x;
+				}
+			}
 			ballHit = true;
-			if (B->getName() == "Tile")
+
+			//Tile actions
+			map->deleteGameObject(B);
+			tileAmount--;
+		}
+		else if ((B->getName() == "Ball" && A->getName() == "Tile"))
+		{
+			//Physics
+			if (!ballHit)
 			{
-				map->deleteGameObject(B);
-				tileAmount--;
+				ballVelocity.y = -ballVelocity.y;
 			}
-			else if (A->getName() == "Tile")
-			{
-				map->deleteGameObject(A);
-				tileAmount--;
-			}
+			ballHit = true;
+
+			//Tile actionss
+			map->deleteGameObject(A);
+			tileAmount--;
+
 		}
 	}
 	//Restrict ball

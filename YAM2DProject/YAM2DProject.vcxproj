@@ -86,6 +86,7 @@
     <ClCompile Include="Code\Sources\CreateGameObject.cpp" />
     <ClCompile Include="Code\Sources\CreateTextObject.cpp" />
     <ClCompile Include="Code\Sources\DEBUGiostream.cpp" />
+    <ClCompile Include="Code\Sources\GameLevelState.cpp" />
     <ClCompile Include="Code\Sources\GameState.cpp" />
     <ClCompile Include="Code\Sources\MainMenuState.cpp" />
     <ClCompile Include="Code\Sources\PhysicsBody.cpp" />
@@ -98,6 +99,7 @@
     <ClInclude Include="Code\Headers\CreateGameObject.h" />
     <ClInclude Include="Code\Headers\CreateTextObject.h" />
     <ClInclude Include="Code\Headers\DEBUGiostream.h" />
+    <ClInclude Include="Code\Headers\GameLevelState.h" />
     <ClInclude Include="Code\Headers\GameState.h" />
     <ClInclude Include="Code\Headers\MainMenuState.h" />
     <ClInclude Include="Code\Headers\PhysicsBody.h" />

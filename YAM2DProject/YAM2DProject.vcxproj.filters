@@ -63,6 +63,9 @@
     <ClCompile Include="Code\Sources\CreateTextObject.cpp">
       <Filter>Source Files\ExtendedEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Sources\GameLevelState.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Headers\StateManager.h">
@@ -94,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="Code\Headers\CreateTextObject.h">
       <Filter>Header Files\ExtendedEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Headers\GameLevelState.h">
+      <Filter>Header Files\States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
