@@ -12,6 +12,8 @@
 #include <vector>
 
 
+class CustomComponentFactory;
+
 class GameLevelState : public State
 {
 public:
@@ -23,7 +25,7 @@ public:
 
 private:
 	yam2d::TmxMap* map;
-	yam2d::ComponentFactory* compFac;
+	CustomComponentFactory* compFac;
 	yam2d::vec2 playerPosition;
 	yam2d::vec2 ballPosition;
 	yam2d::vec2 ballVelocity;
@@ -31,6 +33,10 @@ private:
 	yam2d::GameObject* ballObject;
 	yam2d::GameObject* textObject;
 	std::vector<yam2d::GameObject*> tileObjects;
+
+	yam2d::vec2 tileSize;
+	yam2d::vec2 ballSize;
+	yam2d::vec2 playerSize;
 
 	float endTimer = 3.0f;
 

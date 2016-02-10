@@ -17,7 +17,7 @@ MainMenuState::MainMenuState(StateManager* _stateManager) : State(_stateManager)
 	map->addLayer(yam2d::Map::BACKGROUND0, background);
 	map->addLayer(yam2d::Map::MAPLAYER0, objects);
 
-	backgroundObject = createSpriteGameObject("Textures/menu_background.png", 1280.0f, 720.0f);
+	backgroundObject = createSpriteGameObject("Textures/menu_background.png", 1280.0f, 768.0f);
 	newGameObject = createSpriteGameObject("Textures/new_game_button.png", 300.0f, 100.0f);
 	exitGameObject = createSpriteGameObject("Textures/exit_game_button.png", 300.0f, 100.0f);
 
@@ -82,6 +82,6 @@ bool MainMenuState::update(yam2d::ESContext* _context, float _deltaTime)
 
 void MainMenuState::draw(yam2d::ESContext* _context)
 {
-	map->getCamera()->setScreenSize(_context->width, _context->height, 720, 1280.0f / 720.0f);
+	map->getCamera()->setScreenSize(_context->width, _context->height, 768, 1280.0f / 768.0f);
 	map->render();
 }

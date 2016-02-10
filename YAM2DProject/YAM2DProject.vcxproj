@@ -85,6 +85,7 @@
     <ClCompile Include="Code\Sources\ContactListener.cpp" />
     <ClCompile Include="Code\Sources\CreateGameObject.cpp" />
     <ClCompile Include="Code\Sources\CreateTextObject.cpp" />
+    <ClCompile Include="Code\Sources\CustomComponentFactory.cpp" />
     <ClCompile Include="Code\Sources\DEBUGiostream.cpp" />
     <ClCompile Include="Code\Sources\GameLevelState.cpp" />
     <ClCompile Include="Code\Sources\GameState.cpp" />
@@ -98,6 +99,7 @@
     <ClInclude Include="Code\Headers\ContactListener.h" />
     <ClInclude Include="Code\Headers\CreateGameObject.h" />
     <ClInclude Include="Code\Headers\CreateTextObject.h" />
+    <ClInclude Include="Code\Headers\CustomComponentFactory.h" />
     <ClInclude Include="Code\Headers\DEBUGiostream.h" />
     <ClInclude Include="Code\Headers\GameLevelState.h" />
     <ClInclude Include="Code\Headers\GameState.h" />

@@ -66,6 +66,9 @@
     <ClCompile Include="Code\Sources\GameLevelState.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Sources\CustomComponentFactory.cpp">
+      <Filter>Source Files\ExtendedEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Headers\StateManager.h">
@@ -100,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="Code\Headers\GameLevelState.h">
       <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Headers\CustomComponentFactory.h">
+      <Filter>Header Files\ExtendedEngine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

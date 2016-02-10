@@ -3,6 +3,7 @@
 #include "MainMenuState.h"
 #include "PhysicsBody.h"
 #include "CreateTextObject.h"
+#include "CustomComponentFactory.h"
 
 #include <Camera.h>
 #include <Input.h>
@@ -16,18 +17,14 @@ Power ups
 levels
 score
 tile hitting physics
-
 */
 
-GameLevelState::GameLevelState(StateManager* _stateManager) : State(_stateManager), playerPosition(0.0f, 4.0f), ballPosition(0.0f, 0.0f), ballVelocity(0.0f, 0.1f)
+GameLevelState::GameLevelState(StateManager* _stateManager) : State(_stateManager), playerPosition(0.0f, 4.0f), ballPosition(0.0f, 0.0f), ballVelocity(0.0f, 0.1f),
+ballSize(40.0f, 40.0f), playerSize(150, 35.0f)
 {
-	//boxWorld = new b2World(yam2d::vec2(0.0f, 0.0f));
-	//boxWorld->SetAllowSleeping(false);
-	//contactListener = new ContactListener();
-	//boxWorld->SetContactListener(contactListener);
-
-	compFac = new yam2d::DefaultComponentFactory();
+	compFac = new CustomComponentFactory();
 	map = new yam2d::TmxMap();
+	compFac->setCurrentMap(map);
 	if (map->loadMapFile("Maps/test_map.tmx", compFac))
 	{
 		map->getCamera()->setPosition(yam2d::vec2(map->getWidth() / 2.0f, map->getHeight() / 2.0f));
@@ -37,60 +34,46 @@ GameLevelState::GameLevelState(StateManager* _stateManager) : State(_stateManage
 		msgstream("Error loading TmxMap!");
 		stateManager->setState(new MainMenuState(stateManager));
 	}
+	tileSize = yam2d::vec2(map->getTileWidth(), map->getTileHeight());
 
-	//background = new yam2d::Layer(map, "Background", 1.0f, true, true);
-	//objects = new yam2d::Layer(map, "Objects", 1.0f, true, false);
-
-	//map->addLayer(yam2d::Map::BACKGROUND0, background);
-	//map->addLayer(yam2d::Map::MAPLAYER0, objects);
-
-	//backgroundObject = createSpriteGameObject("Textures/menu_background.png", 1280.0f, 720.0f);
-	//
-	//playerObject = createSpriteGameObject("Textures/player.png", playerSize.x, playerSize.y);
-	//PhysicsBody* Playerbody = new PhysicsBody(playerObject, boxWorld, 1.0f, 1.0f);
-	//Playerbody->setBoxFixture(playerSize / tileSize, yam2d::vec2(0.0f, 0.0f), playerObject->getRotation(), true);
-	//playerObject->addComponent(Playerbody);
-	//playerObject->setName("Player");
-	//playerObject->getComponent<PhysicsBody>()->getBody()->SetTransform(playerPosition, 0.0f);
-
-	//ballObject = createSpriteGameObject("Textures/ball.png", ballSize.x, ballSize.y);
-	//PhysicsBody* ballBody = new PhysicsBody(ballObject, boxWorld, 1.0f, 1.0f);
-	//ballBody->setCircleFixture((ballSize.x / tileSize.x) / 2 , true);
-	//ballObject->addComponent(ballBody);
-	//ballObject->setName("Ball");
-	//ballObject->getComponent<PhysicsBody>()->getBody()->SetTransform(ballPosition, 0.0f);
-
-	//for (int i = 0; i < tileAmount; i++)
-	//{
-	//	tileObjects.push_back(createSpriteGameObject("Textures/tile.png", tilesSize.x, tilesSize.y));
-	//	objects->addGameObject(tileObjects.back());
-	//	PhysicsBody* tileBody = new PhysicsBody(tileObjects.back(), boxWorld, 1.0f, 1.0f);
-	//	tileBody->setBoxFixture(tilesSize / tileSize, yam2d::vec2(0.0f, 0.0f), tileObjects.back()->getRotation(), true);
-	//	tileObjects.back()->addComponent(tileBody);
-	//	tileObjects.back()->setName("Tile");
-	//	tileObjects.back()->getComponent<PhysicsBody>()->getBody()->SetTransform(yam2d::vec2(-3.0f + 2 * i, -2.0f), 0.0f);
-	//}
-
-	//textObject = createTextObject();
-	//textObject->setPosition(8.0f, -5.0f);
-
-	//background->addGameObject(backgroundObject);
-	//objects->addGameObject(playerObject);
-	//objects->addGameObject(ballObject);
-	//objects->addGameObject(textObject);
+	yam2d::Map::LayerMap layers = map->getLayers();
+	yam2d::Layer::GameObjectList goList;
+	for (unsigned i = 0; i < layers.size(); i++)
+	{
+		if (layers[i])
+		{
+			goList = layers[i]->getGameObjects();
+			for (unsigned i = 0; i < goList.size(); i++)
+			{
+				tileObjects.push_back(goList[i]);
+			}
+		}
+	}
+	for (unsigned i = 0; i < tileObjects.size(); i++)
+	{
+		if (tileObjects[i]->getName() == "Player")
+		{
+			playerObject = tileObjects[i];
+			//tileObjects.erase[i];
+			i--;
+		}
+		else if (tileObjects[i]->getName() == "Ball")
+		{
+			ballObject = tileObjects[i];
+			//tileObjects.erase[i];
+			i--;
+		}
+	}
 }
 GameLevelState::~GameLevelState()
 {
 	delete map;
-	//delete contactListener;
+	delete contactListener;
 }
 
 
 bool GameLevelState::update(yam2d::ESContext* _context, float _deltaTime)
 {
-	//boxWorld->Step(_deltaTime, 10, 10);
-	map->update(_deltaTime);
-
 	//static bool ballHit;
 	//ballHit = false;
 	////Collisions
@@ -142,7 +125,8 @@ bool GameLevelState::update(yam2d::ESContext* _context, float _deltaTime)
 
 	//	}
 	//}
-	////Restrict ball
+
+	//Restrict ball
 	//if (ballObject->getComponent<PhysicsBody>()->getBody()->GetPosition().x > ((float)_context->width/2.0f) / tileSize.x
 	//	|| ballObject->getComponent<PhysicsBody>()->getBody()->GetPosition().x < -((float) _context->width / 2.0f) / tileSize.x)
 	//{
@@ -152,6 +136,7 @@ bool GameLevelState::update(yam2d::ESContext* _context, float _deltaTime)
 	//{
 	//	ballVelocity.y = -ballVelocity.y;
 	//}
+
 	////Win-Lose
 	//if (tileAmount == 0)
 	//{
@@ -172,24 +157,24 @@ bool GameLevelState::update(yam2d::ESContext* _context, float _deltaTime)
 	//	stateManager->setState(new MainMenuState(stateManager));
 	//	return true;
 	//}
-	//
-	////Input
-	//if (yam2d::getKeyState(yam2d::KEY_BACK))
-	//{
-	//	stateManager->setState(new MainMenuState(stateManager));
-	//	return true;
-	//}
-	//if (yam2d::getKeyState(yam2d::KEY_D))
-	//{
-	//	playerObject->getComponent<PhysicsBody>()->getBody()->SetTransform(playerObject->getPosition() + yam2d::vec2(0.1f, 0.0f), 0.0f);
-	//}
-	//if (yam2d::getKeyState(yam2d::KEY_A))
-	//{
-	//	playerObject->getComponent<PhysicsBody>()->getBody()->SetTransform(playerObject->getPosition() + yam2d::vec2(-0.1f, 0.0f), 0.0f);
-	//}
+	
+	//Input
+	if (yam2d::getKeyState(yam2d::KEY_BACK))
+	{
+		stateManager->setState(new MainMenuState(stateManager));
+		return true;
+	}
+	if (yam2d::getKeyState(yam2d::KEY_D))
+	{
+		playerObject->getComponent<PhysicsBody>()->getBody()->SetTransform(playerObject->getPosition() + yam2d::vec2(0.1f, 0.0f), 0.0f);
+	}
+	if (yam2d::getKeyState(yam2d::KEY_A))
+	{
+		playerObject->getComponent<PhysicsBody>()->getBody()->SetTransform(playerObject->getPosition() + yam2d::vec2(-0.1f, 0.0f), 0.0f);
+	}
 
-	////
-	//ballObject->getComponent<PhysicsBody>()->getBody()->SetTransform(ballObject->getPosition() + ballVelocity, 0.0f);
+	//
+	ballObject->getComponent<PhysicsBody>()->getBody()->SetTransform(ballObject->getPosition() + ballVelocity, 0.0f);
 	//if (endTimer >= 3.0f)
 	//{
 	//	textObject->getComponent<yam2d::TextComponent>()->getText()->setText("Tiles Left: " + std::to_string(tileAmount));
@@ -201,6 +186,6 @@ bool GameLevelState::update(yam2d::ESContext* _context, float _deltaTime)
 
 void GameLevelState::draw(yam2d::ESContext* _context)
 {
-	map->getCamera()->setScreenSize(_context->width, _context->height, 720, 1280.0f / 720.0f);
+	map->getCamera()->setScreenSize(_context->width, _context->height, 768.0f, 1280.0f / 768.0f);
 	map->render();
 }

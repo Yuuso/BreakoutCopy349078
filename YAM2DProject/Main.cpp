@@ -47,7 +47,7 @@ int main(int argc, char** argv)
 {
 	yam2d::ESContext esContext;
 	esInitContext(&esContext);
-	esCreateWindow(&esContext, "Hello Triangle", 1280, 720, yam2d::ES_WINDOW_DEFAULT);
+	esCreateWindow(&esContext, "Hello Triangle", 1280, 768, yam2d::ES_WINDOW_DEFAULT);
 
 
 	esRegisterInitFunc(&esContext, init);

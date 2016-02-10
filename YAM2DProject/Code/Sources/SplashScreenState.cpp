@@ -20,9 +20,9 @@ SplashScreenState::~SplashScreenState()
 
 bool SplashScreenState::update(yam2d::ESContext* _context, float _deltaTime)
 {
-	static const float startTime = _deltaTime;
+	static const float startTime = 0.0f;
 	splashTime += _deltaTime;
-	if (splashTime >= (startTime + 1.0f))
+	if (splashTime >= 1.2f)
 	{
 		stateManager->setState(new MainMenuState(stateManager));
 		return true;
