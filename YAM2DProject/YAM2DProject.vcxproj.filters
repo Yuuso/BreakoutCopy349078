@@ -69,6 +69,12 @@
     <ClCompile Include="Code\Sources\CustomComponentFactory.cpp">
       <Filter>Source Files\ExtendedEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Sources\BallController.cpp">
+      <Filter>Source Files\ExtendedEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Sources\PlayerController.cpp">
+      <Filter>Source Files\ExtendedEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Headers\StateManager.h">
@@ -105,6 +111,12 @@
       <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="Code\Headers\CustomComponentFactory.h">
+      <Filter>Header Files\ExtendedEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Headers\BallController.h">
+      <Filter>Header Files\ExtendedEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Headers\PlayerController.h">
       <Filter>Header Files\ExtendedEngine</Filter>
     </ClInclude>
   </ItemGroup>

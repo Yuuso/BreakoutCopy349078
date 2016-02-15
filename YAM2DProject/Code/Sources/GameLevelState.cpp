@@ -22,8 +22,8 @@ tile hitting physics
 GameLevelState::GameLevelState(StateManager* _stateManager) : State(_stateManager), playerPosition(0.0f, 4.0f), ballPosition(0.0f, 0.0f), ballVelocity(0.0f, 0.1f),
 ballSize(40.0f, 40.0f), playerSize(150, 35.0f)
 {
-	compFac = new CustomComponentFactory();
 	map = new yam2d::TmxMap();
+	compFac = new CustomComponentFactory();
 	compFac->setCurrentMap(map);
 	if (map->loadMapFile("Maps/test_map.tmx", compFac))
 	{
@@ -55,25 +55,26 @@ ballSize(40.0f, 40.0f), playerSize(150, 35.0f)
 		{
 			playerObject = tileObjects[i];
 			//tileObjects.erase[i];
-			i--;
 		}
 		else if (tileObjects[i]->getName() == "Ball")
 		{
 			ballObject = tileObjects[i];
 			//tileObjects.erase[i];
-			i--;
 		}
 	}
 }
 GameLevelState::~GameLevelState()
 {
 	delete map;
-	delete contactListener;
+	delete compFac;
 }
 
 
 bool GameLevelState::update(yam2d::ESContext* _context, float _deltaTime)
 {
+	compFac->getPhysicsWorld()->Step(_deltaTime, 10, 10);
+	map->update(_deltaTime);
+
 	//static bool ballHit;
 	//ballHit = false;
 	////Collisions
@@ -159,22 +160,23 @@ bool GameLevelState::update(yam2d::ESContext* _context, float _deltaTime)
 	//}
 	
 	//Input
-	if (yam2d::getKeyState(yam2d::KEY_BACK))
+	if (yam2d::getKeyState(yam2d::KEY_BACK) || yam2d::getKeyState(yam2d::KEY_ESCAPE))
 	{
 		stateManager->setState(new MainMenuState(stateManager));
 		return true;
 	}
-	if (yam2d::getKeyState(yam2d::KEY_D))
-	{
-		playerObject->getComponent<PhysicsBody>()->getBody()->SetTransform(playerObject->getPosition() + yam2d::vec2(0.1f, 0.0f), 0.0f);
-	}
-	if (yam2d::getKeyState(yam2d::KEY_A))
-	{
-		playerObject->getComponent<PhysicsBody>()->getBody()->SetTransform(playerObject->getPosition() + yam2d::vec2(-0.1f, 0.0f), 0.0f);
-	}
+	//if (yam2d::getKeyState(yam2d::KEY_D))
+	//{
+	//	playerObject->getComponent<PhysicsBody>()->getBody()->SetTransform(playerObject->getPosition() + yam2d::vec2(0.1f, 0.0f), 0.0f);
+	//}
+	//if (yam2d::getKeyState(yam2d::KEY_A))
+	//{
+	//	playerObject->getComponent<PhysicsBody>()->getBody()->SetTransform(playerObject->getPosition() + yam2d::vec2(-0.1f, 0.0f), 0.0f);
+	//}
 
 	//
-	ballObject->getComponent<PhysicsBody>()->getBody()->SetTransform(ballObject->getPosition() + ballVelocity, 0.0f);
+	//ballObject->getComponent<PhysicsBody>()->getBody()->SetTransform(ballObject->getPosition() + ballVelocity, 0.0f);
+	ballObject->getComponent<PhysicsBody>()->getBody()->ApplyForceToCenter(ballVelocity*50.0f);
 	//if (endTimer >= 3.0f)
 	//{
 	//	textObject->getComponent<yam2d::TextComponent>()->getText()->setText("Tiles Left: " + std::to_string(tileAmount));

@@ -1,8 +1,10 @@
 #include "CustomComponentFactory.h"
+#include "PlayerController.h"
+
 
 CustomComponentFactory::CustomComponentFactory() :DefaultComponentFactory(), m_map(0)
 {
-	m_world = new b2World(vec2(0, 9.81f));
+	m_world = new b2World(vec2(0, 0.0f));
 	m_world->SetAllowSleeping(false);
 	m_contactListener = new ContactListener();
 	m_world->SetContactListener(m_contactListener);
@@ -35,25 +37,24 @@ Entity* CustomComponentFactory::createNewEntity(ComponentFactory* componentFacto
 {
 	float linearDamping = 0.5f;
 	float angularDamping = 0.5f;
-
-	float restitution = 0.2f;
-
 	if ("Player" == type)
 	{
 		GameObject* gameObject = new GameObject(parent, properties);
-		PhysicsBody* body = new PhysicsBody(gameObject, m_world);
+		PhysicsBody* body = new PhysicsBody(gameObject, m_world, linearDamping, angularDamping);
+		PlayerController* playerController = new PlayerController(gameObject);
 
 		body->setBoxFixture(gameObject->getSizeInTiles()*0.95f, yam2d::vec2(0, 0), gameObject->getRotation(), true);
 
 		gameObject->addComponent(body);
 		gameObject->addComponent(componentFactory->createNewComponent("Tile", gameObject, properties));
+		gameObject->addComponent(playerController);
 		gameObject->setName("Player");
 		return gameObject;
 	}
 	else if ("Ball" == type)
 	{
 		GameObject* gameObject = new GameObject(parent, properties);
-		PhysicsBody* body = new PhysicsBody(gameObject, m_world);
+		PhysicsBody* body = new PhysicsBody(gameObject, m_world, linearDamping, angularDamping);
 
 		body->setCircleFixture(gameObject->getSizeInTiles().x*0.95f, true);
 
@@ -66,11 +67,22 @@ Entity* CustomComponentFactory::createNewEntity(ComponentFactory* componentFacto
 	else if ("Tile" == type)
 	{
 		GameObject* gameObject = new GameObject(parent, properties);
-		PhysicsBody* body = new PhysicsBody(gameObject, m_world);
+		PhysicsBody* body = new PhysicsBody(gameObject, m_world, linearDamping, angularDamping);
 		vec2 center = yam2d::vec2(0, 0);
 		body->setBoxFixture(gameObject->getSizeInTiles(), center, gameObject->getRotation(), true);
 
 		gameObject->addComponent(body);
+		gameObject->addComponent(componentFactory->createNewComponent("Tile", gameObject, properties));
+		gameObject->setName("Tile");
+
+		return gameObject;
+	}
+	else if ("Background" == type)
+	{
+		GameObject* gameObject = new GameObject(parent, properties);
+
+		gameObject->addComponent(componentFactory->createNewComponent("Tile", gameObject, properties));
+		gameObject->setName("Background");
 
 		return gameObject;
 	}
