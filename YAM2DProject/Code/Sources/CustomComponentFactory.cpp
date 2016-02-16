@@ -6,8 +6,8 @@ CustomComponentFactory::CustomComponentFactory() :DefaultComponentFactory(), m_m
 {
 	m_world = new b2World(vec2(0, 0.0f));
 	m_world->SetAllowSleeping(false);
-	m_contactListener = new ContactListener();
-	m_world->SetContactListener(m_contactListener);
+	//m_contactListener = new ContactListener();
+	//m_world->SetContactListener(m_contactListener);
 }
 CustomComponentFactory::~CustomComponentFactory()
 {
@@ -21,10 +21,10 @@ b2World* CustomComponentFactory::getPhysicsWorld()
 {
 	return m_world;
 }
-ContactListener* CustomComponentFactory::getContactListener()
-{
-	return m_contactListener;
-}
+//ContactListener* CustomComponentFactory::getContactListener()
+//{
+//	return m_contactListener;
+//}
 
 Component* CustomComponentFactory::createNewComponent(const std::string& type, Entity* owner, const yam2d::PropertySet& properties)
 {
@@ -43,7 +43,7 @@ Entity* CustomComponentFactory::createNewEntity(ComponentFactory* componentFacto
 		PhysicsBody* body = new PhysicsBody(gameObject, m_world, linearDamping, angularDamping);
 		PlayerController* playerController = new PlayerController(gameObject);
 
-		body->setBoxFixture(gameObject->getSizeInTiles()*0.95f, yam2d::vec2(0, 0), gameObject->getRotation(), true);
+		body->setBoxFixture(gameObject->getSizeInTiles() * 0.8f/*?*/, yam2d::vec2(0, 0), gameObject->getRotation(), true);
 
 		gameObject->addComponent(body);
 		gameObject->addComponent(componentFactory->createNewComponent("Tile", gameObject, properties));
@@ -56,7 +56,7 @@ Entity* CustomComponentFactory::createNewEntity(ComponentFactory* componentFacto
 		GameObject* gameObject = new GameObject(parent, properties);
 		PhysicsBody* body = new PhysicsBody(gameObject, m_world, linearDamping, angularDamping);
 
-		body->setCircleFixture(gameObject->getSizeInTiles().x*0.95f, true);
+		body->setCircleFixture(gameObject->getSizeInTiles().x * 0.8f/*?*/, true);
 
 		gameObject->addComponent(body);
 		gameObject->addComponent(componentFactory->createNewComponent("Tile", gameObject, properties));
@@ -69,7 +69,7 @@ Entity* CustomComponentFactory::createNewEntity(ComponentFactory* componentFacto
 		GameObject* gameObject = new GameObject(parent, properties);
 		PhysicsBody* body = new PhysicsBody(gameObject, m_world, linearDamping, angularDamping);
 		vec2 center = yam2d::vec2(0, 0);
-		body->setBoxFixture(gameObject->getSizeInTiles(), center, gameObject->getRotation(), true);
+		body->setBoxFixture(gameObject->getSizeInTiles() * 0.8f/*?*/, center, gameObject->getRotation(), true);
 
 		gameObject->addComponent(body);
 		gameObject->addComponent(componentFactory->createNewComponent("Tile", gameObject, properties));

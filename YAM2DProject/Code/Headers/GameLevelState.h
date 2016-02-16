@@ -29,10 +29,13 @@ private:
 	yam2d::vec2 playerPosition;
 	yam2d::vec2 ballPosition;
 	yam2d::vec2 ballVelocity;
+	yam2d::vec2 playerSpeed;
 	yam2d::GameObject* playerObject;
 	yam2d::GameObject* ballObject;
 	yam2d::GameObject* textObject;
 	std::vector<yam2d::GameObject*> tileObjects;
+
+	int tileAmount;
 
 	yam2d::vec2 tileSize;
 	yam2d::vec2 ballSize;
