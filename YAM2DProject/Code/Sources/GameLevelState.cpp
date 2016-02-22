@@ -96,16 +96,27 @@ bool GameLevelState::update(yam2d::ESContext* _context, float _deltaTime)
 			//Physics
 			if (!ballHit)
 			{
-				ballObject->getComponent<PhysicsBody>()->getBody()->SetTransform(ballObject->getComponent<PhysicsBody>()->getBody()->GetPosition() + (playerSpeed), 0.0f);
+				A->getComponent<PhysicsBody>()->getBody()->SetTransform(b2Vec2(A->getComponent<PhysicsBody>()->getBody()->GetPosition().x - ballVelocity.x, A->getComponent<PhysicsBody>()->getBody()->GetPosition().y), A->getComponent<PhysicsBody>()->getBody()->GetAngle());
 				//Check for side hits
 				if (A->getComponent<PhysicsBody>()->getBody()->GetPosition().x + A->getSizeInTiles().x * 0.5f <
-					B->getComponent<PhysicsBody>()->getBody()->GetPosition().x - B->getSizeInTiles().x * 0.5
+					B->getComponent<PhysicsBody>()->getBody()->GetPosition().x - B->getSizeInTiles().x * 0.5f
 					||
 					A->getComponent<PhysicsBody>()->getBody()->GetPosition().x - A->getSizeInTiles().x * 0.5f >
-					B->getComponent<PhysicsBody>()->getBody()->GetPosition().x + B->getSizeInTiles().x * 0.5)
+					B->getComponent<PhysicsBody>()->getBody()->GetPosition().x + B->getSizeInTiles().x * 0.5f)
 				{
 					ballVelocity.x = -ballVelocity.x;
+					B->getComponent<PhysicsBody>()->getBody()->SetTransform(B->getComponent<PhysicsBody>()->getBody()->GetPosition() - playerSpeed, B->getComponent<PhysicsBody>()->getBody()->GetAngle());
+				}
+				else if (A->getComponent<PhysicsBody>()->getBody()->GetPosition().x + A->getSizeInTiles().x * 0.4f <
+					B->getComponent<PhysicsBody>()->getBody()->GetPosition().x - B->getSizeInTiles().x * 0.4f
+					||
+					A->getComponent<PhysicsBody>()->getBody()->GetPosition().x - A->getSizeInTiles().x * 0.4f >
+					B->getComponent<PhysicsBody>()->getBody()->GetPosition().x + B->getSizeInTiles().x * 0.4f)
+				{
+					ballVelocity.x = -ballVelocity.x;
+					ballVelocity.y = -ballVelocity.y;
 					ballVelocity.x -= (playerObject->getComponent<PhysicsBody>()->getBody()->GetPosition().x - ballObject->getComponent<PhysicsBody>()->getBody()->GetPosition().x) / 20.0f;
+					B->getComponent<PhysicsBody>()->getBody()->SetTransform(B->getComponent<PhysicsBody>()->getBody()->GetPosition() - playerSpeed, B->getComponent<PhysicsBody>()->getBody()->GetAngle());
 				}
 				else
 				{
@@ -120,15 +131,27 @@ bool GameLevelState::update(yam2d::ESContext* _context, float _deltaTime)
 			//Physics
 			if (!ballHit)
 			{
+				B->getComponent<PhysicsBody>()->getBody()->SetTransform(b2Vec2(B->getComponent<PhysicsBody>()->getBody()->GetPosition().x - ballVelocity.x, B->getComponent<PhysicsBody>()->getBody()->GetPosition().y), B->getComponent<PhysicsBody>()->getBody()->GetAngle());
 				//Check for side hits
 				if (B->getComponent<PhysicsBody>()->getBody()->GetPosition().x + B->getSizeInTiles().x * 0.5f <
-					A->getComponent<PhysicsBody>()->getBody()->GetPosition().x - A->getSizeInTiles().x * 0.5
+					A->getComponent<PhysicsBody>()->getBody()->GetPosition().x - A->getSizeInTiles().x * 0.5f
 					||
 					B->getComponent<PhysicsBody>()->getBody()->GetPosition().x - B->getSizeInTiles().x * 0.5f >
-					A->getComponent<PhysicsBody>()->getBody()->GetPosition().x + A->getSizeInTiles().x * 0.5)
+					A->getComponent<PhysicsBody>()->getBody()->GetPosition().x + A->getSizeInTiles().x * 0.5f)
 				{
 					ballVelocity.x = -ballVelocity.x;
+					A->getComponent<PhysicsBody>()->getBody()->SetTransform(A->getComponent<PhysicsBody>()->getBody()->GetPosition() - playerSpeed, A->getComponent<PhysicsBody>()->getBody()->GetAngle());
+				}
+				else if (B->getComponent<PhysicsBody>()->getBody()->GetPosition().x + B->getSizeInTiles().x * 0.4f <
+					A->getComponent<PhysicsBody>()->getBody()->GetPosition().x - A->getSizeInTiles().x * 0.4f
+					||
+					B->getComponent<PhysicsBody>()->getBody()->GetPosition().x - B->getSizeInTiles().x * 0.4f >
+					A->getComponent<PhysicsBody>()->getBody()->GetPosition().x + A->getSizeInTiles().x * 0.4f)
+				{
+					ballVelocity.x = -ballVelocity.x;
+					ballVelocity.y = -ballVelocity.y;
 					ballVelocity.x -= (playerObject->getComponent<PhysicsBody>()->getBody()->GetPosition().x - ballObject->getComponent<PhysicsBody>()->getBody()->GetPosition().x) / 20.0f;
+					A->getComponent<PhysicsBody>()->getBody()->SetTransform(A->getComponent<PhysicsBody>()->getBody()->GetPosition() - playerSpeed, A->getComponent<PhysicsBody>()->getBody()->GetAngle());
 				}
 				else
 				{
@@ -202,7 +225,15 @@ bool GameLevelState::update(yam2d::ESContext* _context, float _deltaTime)
 	{
 		ballVelocity.y = -ballVelocity.y;
 	}
-	msgstream(ballObject->getSizeInTiles().x, ballObject->getSizeInTiles().y);
+	//Restrict player (enable movement only if not restrisctedasd)
+	if (playerObject->getComponent<PhysicsBody>()->getBody()->GetPosition().x + playerObject->getSizeInTiles().x  > tileSize.x)
+	{
+		playerObject->getComponent<PhysicsBody>()->getBody()->SetTransform(b2Vec2(tileSize.x, playerObject->getComponent<PhysicsBody>()->getBody()->GetPosition().y), playerObject->getComponent<PhysicsBody>()->getBody()->GetAngle());
+	}
+	else if (playerObject->getComponent<PhysicsBody>()->getBody()->GetPosition().x - playerObject->getSizeInTiles().x  < 0.0f)
+	{
+		playerObject->getComponent<PhysicsBody>()->getBody()->SetTransform(b2Vec2(0.0f, playerObject->getComponent<PhysicsBody>()->getBody()->GetPosition().y), playerObject->getComponent<PhysicsBody>()->getBody()->GetAngle());
+	}
 
 	//Win-Lose
 	if (tileAmount == 0)
@@ -244,7 +275,7 @@ bool GameLevelState::update(yam2d::ESContext* _context, float _deltaTime)
 	}
 
 	//
-	ballObject->getComponent<PhysicsBody>()->getBody()->SetTransform(ballObject->getPosition() + ballVelocity, 0.0f);
+	ballObject->getComponent<PhysicsBody>()->getBody()->SetTransform(ballObject->getPosition() + (ballVelocity), 0.0f);
 	if (endTimer >= 3.0f)
 	{
 		textObject->getComponent<yam2d::TextComponent>()->getText()->setText("Tiles Left: " + std::to_string(tileAmount));
