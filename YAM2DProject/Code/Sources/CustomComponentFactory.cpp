@@ -32,7 +32,7 @@ Component* CustomComponentFactory::createNewComponent(const std::string& type, E
 	return DefaultComponentFactory::createNewComponent(type, owner, properties);
 }
 
-
+#define TILE_SIZE_MAGIC 0.7f /*??*/
 Entity* CustomComponentFactory::createNewEntity(ComponentFactory* componentFactory, const std::string& type, Entity* parent, const yam2d::PropertySet& properties)
 {
 	float linearDamping = 0.5f;
@@ -43,7 +43,7 @@ Entity* CustomComponentFactory::createNewEntity(ComponentFactory* componentFacto
 		PhysicsBody* body = new PhysicsBody(gameObject, m_world, linearDamping, angularDamping);
 		PlayerController* playerController = new PlayerController(gameObject);
 
-		body->setBoxFixture(gameObject->getSizeInTiles() * 0.8f/*?*/, yam2d::vec2(0, 0), gameObject->getRotation(), true);
+		body->setBoxFixture(gameObject->getSizeInTiles() * TILE_SIZE_MAGIC, yam2d::vec2(0, 0), gameObject->getRotation(), true);
 
 		gameObject->addComponent(body);
 		gameObject->addComponent(componentFactory->createNewComponent("Tile", gameObject, properties));
@@ -56,7 +56,7 @@ Entity* CustomComponentFactory::createNewEntity(ComponentFactory* componentFacto
 		GameObject* gameObject = new GameObject(parent, properties);
 		PhysicsBody* body = new PhysicsBody(gameObject, m_world, linearDamping, angularDamping);
 
-		body->setCircleFixture(gameObject->getSizeInTiles().x * 0.8f/*?*/, true);
+		body->setCircleFixture(gameObject->getSizeInTiles().x * TILE_SIZE_MAGIC, true);
 
 		gameObject->addComponent(body);
 		gameObject->addComponent(componentFactory->createNewComponent("Tile", gameObject, properties));
@@ -69,7 +69,7 @@ Entity* CustomComponentFactory::createNewEntity(ComponentFactory* componentFacto
 		GameObject* gameObject = new GameObject(parent, properties);
 		PhysicsBody* body = new PhysicsBody(gameObject, m_world, linearDamping, angularDamping);
 		vec2 center = yam2d::vec2(0, 0);
-		body->setBoxFixture(gameObject->getSizeInTiles() * 0.8f/*?*/, center, gameObject->getRotation(), true);
+		body->setBoxFixture(gameObject->getSizeInTiles() * TILE_SIZE_MAGIC, center, gameObject->getRotation(), true);
 
 		gameObject->addComponent(body);
 		gameObject->addComponent(componentFactory->createNewComponent("Tile", gameObject, properties));
